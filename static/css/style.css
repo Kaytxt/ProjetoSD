@@ -1,0 +1,55 @@
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('C:\Users\kauan\OneDrive\Desktop\MeusProjetos\ProjetoSD\static\img\Logo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login-container {
+    text-align: center;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente para o formulário */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+h1 {
+    color: #fff;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 250px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #ff0000;
+    background-color: transparent;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    border: 2px solid #ff0000;
+    background-color: #ff0000;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-secondary {
+    background-color: transparent;
+}

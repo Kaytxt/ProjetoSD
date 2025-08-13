@@ -4,20 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SD Motos - Login</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 </head>
 <body>
-    <div style="text-align: center; padding-top: 50px;">
-        <h1>Seja bem vindo!</h1>
-        <p>Tela de login, em breve colocar designe</p>
-        
-        <form action="#" method="post">
-            <input type="text" name="Login"><br><br>
-            <input type="text" name="Senha"><br><br>
-            <button type="button">Entrar</button>
+    <div class="Login-container">
+        <h1>Bem vindo!</h1>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for message in messages %}
+                <p style="color: red">{{ message }}</p>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+        <form action="{{url_for('login')}}" method="post">
+            <input type="text" name="username" placeholder="Login"><br>
+            <input type="password" name="password" placeholder="Senha"><br>
+            <button type="submit" class="btn">Entrar</button>
+            <a href="{{url_for('home')}}" class="btn btn-secondary">Entrar sem login</a>
         </form>
-
-        <a href="#">Entrar sem Login</a>
-
     </div>
 </body>
 </html>
