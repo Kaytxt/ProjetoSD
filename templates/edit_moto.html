@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Moto</title>
+</head>
+<body>
+    <h1>Editar Moto</h1>
+    <p>ID da Moto: {{ moto.id }}</p>
+
+    <form action="" method="POST">
+        <label for="marca">Marca:</label><br>
+        <input type="text" id="marca" name="marca" value="{{ moto.marca }}" required><br><br>
+
+        <label for="modelo">Modelo:</label><br>
+        <input type="text" id="modelo" name="modelo" value="{{ moto.modelo }}" required><br><br>
+
+        <label for="ano">Ano:</label><br>
+        <input type="number" id="ano" name="ano" value="{{ moto.ano }}" required><br><br>
+
+        <label for="preco">Preço:</label><br>
+        <input type="number" id="preco" name="preco" value="{{ moto.preco }}" required><br><br>
+
+        <label for="descricao">Descrição:</label><br>
+        <textarea id="descricao" name="descricao" rows="4" cols="50">{{ moto.descricao }}</textarea><br><br>
+
+        <button type="submit">Salvar Alterações</button>
+    </form>
+    
+    <a href="{{ url_for('admin_panel') }}">Voltar para o Painel</a>
+</body>
+</html>

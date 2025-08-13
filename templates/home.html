@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SD Motos</title>
+    </head>
+<body>
+    <header>
+        </header>
+
+    <div class="search-section">
+        <h2>Faça sua pesquisa</h2>
+        <form>
+            <label for="marca">Marca:</label>
+            <input type="text" id="marca" name="marca"><br><br>
+
+            <label for="modelo">Modelo:</label>
+            <input type="text" id="modelo" name="modelo"><br><br>
+
+            <label for="ano">Ano:</label>
+            <input type="number" id="ano" name="ano"><br><br>
+
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <hr>
+
+    <div class="motorcycles-grid">
+        {% for moto in motos %}
+            <div class="moto-card">
+                {% if moto.imagem_url %}
+                <img src="{{url_for('static', filename='uploads/' + moto.imagem_url)}}" alt="Imagem da Moto">
+                {% else %}
+                <img src="{{ url_for('static', filename='img/placeholder.png') }}" alt="Sem Imagem">
+                {% endif %}
+                <h3>{{ moto.marca }} {{ moto.modelo }}</h3>
+                <p>Ano: {{ moto.ano }}</p>
+                <p>Preço: R$ {{ moto.preco }}</p>
+                <p>Descrição: {{ moto.descricao }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

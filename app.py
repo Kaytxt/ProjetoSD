@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename 
+import os 
 
 
 app = Flask(__name__)
@@ -31,6 +33,7 @@ class Moto(db.Model):
     ano = db.Column(db.Integer, nullable=False)
     preco = db.Column(db.Integer, nullable=False)
     descricao = db.Column(db.String(200), nullable=True)
+    imagem_url = db.Column(db.String(200), nullable=True)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -44,10 +47,6 @@ def index():
         return redirect(url_for('admin_panel'))
     return render_template('index.html')
 
-# Pagina publica
-@app.route('/home')
-def home():
-    return render_template('home.html')
 
 # rota para processar o login
 @app.route('/login', methods=['POST'])
@@ -63,11 +62,94 @@ def login():
         flash('Usuario ou senha incorretos.')
     return redirect(url_for('index'))
 
+# Rota para adicionar uma nova moto
+@app.route('/add_moto', methods=['POST'])
+@login_required
+def add_moto():
+    marca = request.form.get('marca')
+    modelo = request.form.get('modelo')
+    ano = request.form.get('ano')
+    preco = request.form.get('preco')
+    descricao = request.form.get('descricao')
+
+    # Lógica para o upload da imagem
+    imagem_salva = None
+    if 'imagem' in request.files:
+        imagem = request.files['imagem']
+        if imagem.filename != '':
+            filename = secure_filename(imagem.filename)
+            upload_folder = os.path.join(app.root_path, 'static', 'uploads')
+            imagem.save(os.path.join(upload_folder, filename))
+            imagem_salva = filename
+
+    nova_moto = Moto(marca=marca, modelo=modelo, ano=ano, preco=preco, descricao=descricao, imagem_url=imagem_salva)
+    db.session.add(nova_moto)
+    db.session.commit()
+
+    flash('Moto adicionada com sucesso!', 'success')
+    return redirect(url_for('admin_panel'))
+
+# Rota para remover uma moto
+@app.route('/delete_moto/<int:moto_id>', methods=['POST'])
+@login_required
+def delete_moto(moto_id):
+    moto_a_remover = Moto.query.get_or_404(moto_id)
+    db.session.delete(moto_a_remover)
+    db.session.commit()
+    flash('Moto removida com sucesso!', 'success')
+    return redirect(url_for('admin_panel'))
+
+# Rota para editar uma moto
+@app.route('/edit_moto/<int:moto_id>', methods=['GET', 'POST'])
+@login_required
+def edit_moto(moto_id):
+    moto = Moto.query.get_or_404(moto_id)
+    
+    if request.method == 'POST':
+        # Processa o formulário enviado
+        moto.marca = request.form['marca']
+        moto.modelo = request.form['modelo']
+        moto.ano = request.form['ano']
+        moto.preco = request.form['preco']
+        moto.descricao = request.form['descricao']
+        
+        db.session.commit()
+        flash('Moto atualizada com sucesso!', 'success')
+        return redirect(url_for('admin_panel'))
+    
+    # Renderiza a página de edição no método GET
+    return render_template('edit_moto.html', moto=moto)
+
 # Rota painel adm
 @app.route('/admin')
 @login_required
 def admin_panel():
-    return render_template('admin_panel.html')
+    motos = Moto.query.all()
+    print(f"Motos encontradas no banco de dados: {motos}")
+    return render_template('admin_panel.html', motos=motos)
+
+# Rota para pagina publica
+@app.route('/home')
+def home():
+    # Pega os termos de pesquisa do formulário (se existirem)
+    marca_busca = request.args.get('marca')
+    modelo_busca = request.args.get('modelo')
+    ano_busca = request.args.get('ano')
+    
+    # Começa com uma consulta para todas as motos
+    motos_query = Moto.query
+    
+    # Filtra com base nas info das motos
+    if marca_busca:
+        motos_query = motos_query.filter(Moto.marca.like(f'%{marca_busca}%'))
+    if modelo_busca:
+        motos_query = motos_query.filter(Moto.modelo.like(f'%{modelo_busca}%'))
+    if ano_busca:
+        motos_query = motos_query.filter(Moto.ano == ano_busca)
+    
+    motos = motos_query.all()
+    
+    return render_template('home.html', motos=motos)
 
 # rota para logout 
 @app.route('/logout')
