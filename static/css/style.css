@@ -86,7 +86,7 @@ h1, h2 {
     /* Adiciona um espaço no topo para que o conteúdo não fique escondido sob o cabeçalho fixo */
     padding-top: 100px;
     /* Garante que cada seção ocupe pelo menos a altura da tela */
-    min-height: 100vh;
+    min-height: 60vh;
 }
 
 /* -------------------- Estilos da Seção de Início -------------------- */
