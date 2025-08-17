@@ -94,8 +94,15 @@ def add_moto():
 @login_required
 def delete_moto(moto_id):
     moto_a_remover = Moto.query.get_or_404(moto_id)
+
+    if moto_a_remover.imagem_url:
+        caminho_imagem = os.path.join(app.root_path, 'static', 'uploads', moto_a_remover.imagem_url)
+        if os.path.exists(caminho_imagem):
+            os.remove(caminho_imagem)
+
     db.session.delete(moto_a_remover)
     db.session.commit()
+    
     flash('Moto removida com sucesso!', 'success')
     return redirect(url_for('admin_panel'))
 
