@@ -1,65 +1,261 @@
+/* ================================================= */
+/* Estilos Gerais para todo o Site                 */
+/* ================================================= */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
+    /* Cor de fundo e cor do texto padrão para todo o corpo da página */
     background-color: #000;
     color: #fff;
+    /* Fonte padrão para todo o site */
     font-family: Arial, sans-serif;
+    /* Remove a margem padrão do navegador */
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
 }
 
-.background-image {
+
+/* ================================================= */
+/* Estilos para o Cabeçalho (Menu de Navegação)      */
+/* ================================================= */
+.main-header {
+    /* Deixa o cabeçalho fixo no topo da tela */
     position: fixed;
     top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    background-image: url('../img/Logo.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    filter: brightness(20%);
-    z-index: -1; 
+    /* Garante que o menu fique acima de outros elementos */
+    z-index: 1000;
+    /* Define o layout do cabeçalho como flexível, para alinhar o logo e a navegação */
+    display: flex;
+    /* Alinha o logo à esquerda e o menu à direita */
+    justify-content: space-between;
+    /* Centraliza verticalmente os itens */
+    align-items: center;
+    /* Espaçamento interno do cabeçalho */
+    padding: 10px 0px;
+    /* Linha vermelha na parte inferior do cabeçalho */
+    border-bottom: 2px solid #ff0000;
+    background-color: #000;
 }
 
-.login-container {
-    text-align: center;
-    padding: 40px;
-    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente para o formulário */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+.header-logo {
+    /* Define a altura do logo */
+    height: 80px;
+    width: 160px;
 }
 
-h1 {
-    color: #fff;
+.main-header nav ul {
+    /* Remove os marcadores de lista */
+    list-style: none;
+    /* Transforma a lista em uma linha horizontal */
+    display: flex;
+    margin: 0;
+    padding: 0;
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 250px;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 2px solid #ff0000;
-    background-color: transparent;
-    color: #fff;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 5px;
-    border: 2px solid #ff0000;
-    background-color: #ff0000;
+.nav-link {
+    /* Estilo dos links do menu */
     color: #fff;
     text-decoration: none;
+    padding: 20px 40px;
     border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+    border: 2px solid #ff0000;
+    margin-left: 10px;
+    transition: 0.3s;
 }
 
-.btn-secondary {
-    background-color: transparent;
+.nav-link:hover, .nav-link.active {
+    /* Estilo do link ao passar o mouse ou quando a página está ativa */
+    background-color: #ff0000;
+}
+
+h1, h2 {
+    font-family: 'Plush-trial', serif; /* Aplica a nova fonte */
+    font-weight: bold;                  /* Define a "grossura" da fonte (bold, normal, 400, 700) */
+    font-style: normal;                 /* Define se é itálico ou normal (italic, normal) */
+    text-transform: uppercase;          /* Transforma o texto em maiúsculo */
+    font-size: 3em;                     /* Define o tamanho da fonte */
+    color: #fff;                        /* Define a cor do texto */
+}
+
+/* ================================================= */
+/* Estilos para as Seções (Início, Localização, etc.) */
+/* ================================================= */
+.content-section {
+    /* Adiciona um espaço no topo para que o conteúdo não fique escondido sob o cabeçalho fixo */
+    padding-top: 100px;
+    /* Garante que cada seção ocupe pelo menos a altura da tela */
+    min-height: 100vh;
+}
+
+/* -------------------- Estilos da Seção de Início -------------------- */
+.inicio-container {
+    /* Define o layout de duas colunas */
+    display: grid;
+    /* Define a proporção das colunas (2 partes para a busca, 3 para as motos) */
+    grid-template-columns: 0.6fr 3fr;
+    /* Espaçamento entre as colunas */
+    gap: 40px;
+    padding: 40px;
+}
+
+.search-section {
+    /* Estilo da caixa de pesquisa (borda e padding) */
+    padding: 20px;
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.search-section h2 {
+    /* Centraliza o título "Faça sua pesquisa" */
+    text-align: center;
+}
+
+.search-section label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.search-section input {
+    /* Estilo dos campos de entrada */
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 2px solid #ff0000;
+    color: #000;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.search-section button {
+    /* Estilo do botão de busca */
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+/* -------------------- Estilos dos Cards de Motos -------------------- */
+.motorcycles-display {
+    padding: 20px;
+}
+
+.motorcycles-grid {
+    /* Layout dos cards (4 colunas, com espaço entre eles) */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.moto-card {
+    /* Estilo dos cards individuais */
+    border: 2px solid #ff0000;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.moto-card img {
+    /* Garante que a imagem se ajuste ao tamanho do card */
+    border: 3px solid #ff0000;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.btn-card {
+    /* Estilo do botão "Veja mais" */
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 8px 80px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: float;
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+
+#localizacao, #sobre-nos, #contato {
+    border-top: 1px solid #ff0000;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+/* Estilo para a seção Localização */
+#localizacao iframe {
+    border-radius: 10px;
+    margin-top: 20px;
+    max-width: 100%
+}
+
+/* Estilo para a seção Sobre Nós */
+#sobre-nos {
+border-top: 2px solid #ff0000;
+border-bottom: 2px solid #ff0000;
+padding: 40px 20px;
+}
+
+.about-content {
+display: grid;
+grid-template-columns: 1fr 2fr; 
+gap: 40px;
+align-items: center;
+max-width: 1200px; 
+margin: 0 auto;
+}
+
+.about-text {
+text-align: left; /* Alinha o texto à esquerda */
+}
+
+.about-text h1 {
+font-size: 2em;
+font-weight: bold;
+color: #fff;
+border-bottom: 2px solid #ff0000;
+padding-bottom: 10px;
+margin-bottom: 20px;
+}
+
+.about-image img {
+max-width: 100%; 
+border-radius: 10px;
+}
+
+/* Estilo para a seção Contato */
+.contact-content {
+    /* Layout para alinhar os botões em uma coluna */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.contact-btn {
+    /* Estilo dos botões de contato */
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #ff0000;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.1em;
+    width: 250px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.contact-btn:hover {
+    background-color: #ff0000;
 }

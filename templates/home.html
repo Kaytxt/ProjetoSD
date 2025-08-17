@@ -4,44 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SD Motos</title>
-    </head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
 <body>
-    <header>
-        </header>
+    
+    <header class="main-header">
+        <a href="#inicio" class="logo-link">
+            <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="SD Motos Logo" class="header-logo">
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#inicio" class="nav-link active">INICIO</a></li>
+                <li><a href="#localizacao" class="nav-link">LOCALIZAÇÃO</a></li>
+                <li><a href="#contato" class="nav-link">CONTATO</a></li>
+                <li><a href="#sobre-nos" class="nav-link">SOBRE NÓS</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div class="search-section">
-        <h2>Faça sua pesquisa</h2>
-        <form>
-            <label for="marca">Marca:</label>
-            <input type="text" id="marca" name="marca"><br><br>
-
-            <label for="modelo">Modelo:</label>
-            <input type="text" id="modelo" name="modelo"><br><br>
-
-            <label for="ano">Ano:</label>
-            <input type="number" id="ano" name="ano"><br><br>
-
-            <button type="submit">Buscar</button>
-        </form>
-    </div>
-
-    <hr>
-
-    <div class="motorcycles-grid">
-        {% for moto in motos %}
-            <div class="moto-card">
-                {% if moto.imagem_url %}
-                <img src="{{url_for('static', filename='uploads/' + moto.imagem_url)}}" alt="Imagem da Moto">
-                {% else %}
-                <img src="{{ url_for('static', filename='img/placeholder.png') }}" alt="Sem Imagem">
-                {% endif %}
-                <h3>{{ moto.marca }} {{ moto.modelo }}</h3>
-                <p>Ano: {{ moto.ano }}</p>
-                <p>Preço: R$ {{ moto.preco }}</p>
-                <p>Descrição: {{ moto.descricao }}</p>
+    <section id="inicio" class="content-section">
+        <div class="inicio-container">
+            
+            <div class="search-section">
+                <div class="search-form-box">
+                    <h3>Faça sua pesquisa</h2>
+                    <form action="{{ url_for('home') }}" method="GET">
+                        <label for="marca">Marca:</label>
+                        <input type="text" id="marca" name="marca" value="{{ request.args.get('marca', '') }}"><br><br>
+    
+                        <label for="modelo">Modelo:</label>
+                        <input type="text" id="modelo" name="modelo" value="{{ request.args.get('modelo', '') }}"><br><br>
+    
+                        <label for="ano">Ano:</label>
+                        <input type="number" id="ano" name="ano" value="{{ request.args.get('ano', '') }}"><br><br>
+    
+                        <button type="submit">Buscar</button>
+                    </form>
+                </div>
             </div>
-        {% endfor %}
-    </div>
+    
+            <div class="motorcycles-display">
+                <div class="motorcycles-grid">
+                    {% for moto in motos %}
+                    <div class="moto-card">
+                        {% if moto.imagem_url %}
+                        <img src="{{ url_for('static', filename='uploads/' + moto.imagem_url) }}" alt="Imagem da Moto">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='img/placeholder.png') }}" alt="Sem Imagem">
+                        {% endif %}
+                        <h3>{{ moto.marca }} {{ moto.modelo }}</h3>
+                        <p>Ano: {{ moto.ano }}</p>
+                        <p>Preço: R$ {{ moto.preco }}</p>
+                        <p>Descrição: {{ moto.descricao }}</p>
+                        <a href="#" class="btn-card">Veja mais</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </div>
+    </section>
 
+    <section id="localizacao" class="content-section">
+        <h1>LOCALIZAÇÃO</h1>
+        <div class="location-content">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.12781878361!2d-47.818442724458055!3d-21.144458379203067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94b9bbd0a1b6a715%3A0x6b490f23055375d8!2sAv.%20Luzitana%2C%20140%20-%20Vila%20Recreio%2C%20Ribeir%C3%A3o%20Preto%20-%20SP%2C%2014031-420!5e0!3m2!1spt-BR!2sbr!4v1700767072481!5m2!1spt-BR!2sbr" width="1000" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <p>Av. Luzitana, 140 - Parque Ribeirao Preto</p>
+            <p>Ribeirão Preto - SP, 14031-420</p>
+        </div>
+    </section>
+
+    <section id="sobre-nos" class="content-section">
+        <h1>SOBRE NÓS:</h1>
+        <div class="about-content">
+            <div class="about-text">
+                 <p>
+                Desde 2022, a SD Motos tem sido o destino de confiança para os amantes de duas rodas em Ribeirão Preto. Com uma paixão genuína por motocicletas, nossa missão é oferecer a melhor experiência na compra e venda, com um atendimento que prioriza a transparência e a segurança.
+                <br><br>
+                Somos especialistas no mercado de motos usadas, comprando veículos em excelentes condições e avaliando sua moto na troca, garantindo um negócio justo para ambos os lados. Além disso, oferecemos opções de financiamento flexíveis para que você possa realizar o sonho de ter sua nova moto sem complicações.
+                <br><br>
+                Na SD Motos, você encontra qualidade, variedade e a parceria ideal para a sua próxima aventura sobre duas rodas.
+            </p>
+            </div>
+            <div class="about-image">
+                <img src="{{ url_for('static', filename='img/paisagem.jpg') }}" alt="Imagem de paisagem">
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="content-section">
+        <h1>ENTRE EM CONTATO COM A GENTE</h1>
+        <div class="contact-content">
+            <a href="tel:+5516981535884" class="contact-btn phone-btn">📞 +55 16 98153-5884</a>
+            <a href="https://www.instagram.com/sdmotos2022" class="contact-btn instagram-btn" target="_blank">📷 @sdmotos2022</a>
+        </div>
+    </section>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
