@@ -57,11 +57,19 @@ a{
     /* Estilo dos links do menu */
     color: #fff;
     text-decoration: none;
-    padding: 20px 40px;
+    padding: 10px 20px;
     border-radius: 5px;
     border: 2px solid #ff0000;
     margin-left: 10px;
     transition: 0.3s;
+    text-align: center;
+    box-sizing: border-box;
+    /* Adicionando flex para alinhar o texto verticalmente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px; /* Altura fixa para acomodar duas linhas */
+    line-height: 1.2; /* Ajuste a altura da linha conforme necessário */
 }
 
 .nav-link:hover, .nav-link.active {
@@ -169,17 +177,19 @@ h1, h2 {
 }
 
 .btn-card {
-    /* Estilo do botão "Veja mais" */
-    background-color: #ff0000;
-    color: #fff;
-    border: none;
-    padding: 8px 80px;
-    text-decoration: none;
-    border-radius: 5px;
-    display: float;
-    margin-top: 10px;
-    text-align: center;
-    width: 100%;
+background-color: #ff0000;
+color: #fff;
+border: none;
+padding: 8px 15px; /* Reduzi o padding horizontal */
+text-decoration: none;
+border-radius: 5px;
+display: block;
+margin-top: 10px;
+text-align: center;
+width: 80%; /* Reduzi a largura para dar uma margem e evitar quebras */
+margin-left: auto;
+margin-right: auto;
+box-sizing: border-box; /* Garante que o padding não aumente a largura total */
 }
 
 
@@ -226,7 +236,7 @@ margin-bottom: 20px;
 }
 
 .about-image img {
-max-width: 100%; 
+max-width: 60%; 
 border-radius: 10px;
 }
 
