@@ -4,29 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SD Motos - Login</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-    <div class="background-image"></div>
-    
-    <div class="Login-container">
-        <h1>Bem vindo!</h1>
+<body class="login-page">
 
+    <div class="login-background-overlay"></div>
+
+    <div class="login-container">
+        <h1 class="login-title">Bem vindo!</h1>
+        
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul class="flashes">
             {% for message in messages %}
-                <p style="color: red">{{ message }}</p>
+                <p class="flash-message">{{ message }}</p>
             {% endfor %}
             </ul>
         {% endif %}
         {% endwith %}
 
-        <form action="{{url_for('login')}}" method="post">
-            <input type="text" name="username" placeholder="Login"><br>
-            <input type="password" name="password" placeholder="Senha"><br>
-            <button type="submit" class="btn">Entrar</button>
-            <a href="{{url_for('home')}}" class="btn btn-secondary">Entrar sem login</a>
+        <form action="{{ url_for('login') }}" method="POST">
+            <div class="input-group">
+                <input type="text" name="username" placeholder="Login" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Senha" required>
+            </div>
+            <div class="login-buttons">
+                <button type="submit" class="btn-login-primary">Entrar</button>
+                <a href="{{ url_for('home') }}" class="btn-login-secondary">Entrar sem login</a>
+            </div>
         </form>
     </div>
 </body>

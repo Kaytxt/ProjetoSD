@@ -4,87 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-    <h1>Bem-vindo ao Painel de Administração, {{ current_user.username }}!</h1>
-    <p>Aqui é onde você poderá adicionar, editar e remover motos.</p>
-    <a href="{{ url_for('logout') }}">Sair</a>
-    {% with messages = get_flashed_messages() %}
-{% if messages %}
-    <ul class="flashes">
-    {% for message in messages %}
-        <p style="color: green;">{{ message }}</p>
-    {% endfor %}
-    </ul>
-{% endif %}
-{% endwith %}
-
-    <hr>
-
-    <h2>Adicionar Nova Moto</h2>
-
-<form action="{{ url_for('add_moto') }}" method="POST" enctype="multipart/form-data">
-    <label for="marca">Marca:</label><br>
-    <input type="text" id="marca" name="marca" required><br><br>
-
-    <label for="modelo">Modelo:</label><br>
-    <input type="text" id="modelo" name="modelo" required><br><br>
-
-    <label for="ano">Ano:</label><br>
-    <input type="number" id="ano" name="ano" required><br><br>
-
-    <label for="preco">Preço:</label><br>
-    <input type="number" id="preco" name="preco" required><br><br>
-
-    <label for="descricao">Descrição:</label><br>
-    <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea><br><br>
-
-    <label for="imagem">Imagem:</label><br>
-    <input type="file" id="imagem" name="imagem"><br><br>
-
-    <button type="submit">Adicionar Moto</button>
-</form>
-    <hr>
-    
-    <h2>Motos Cadastradas</h2>
-    
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Marca</th>
-                <th>Modelo</th>
-                <th>Ano</th>
-                <th>Preço</th>
-                <th>Descrição</th>
-                <th>Imagem</th> <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for moto in motos %}
-            <tr>
-                <td>{{ moto.id }}</td>
-                <td>{{ moto.marca }}</td>
-                <td>{{ moto.modelo }}</td>
-                <td>{{ moto.ano }}</td>
-                <td>R$ {{ moto.preco }}</td>
-                <td>{{ moto.descricao }}</td>
-                <td>
-                    {% if moto.imagem_url %}
-                        <img src="{{ url_for('static', filename='uploads/' + moto.imagem_url) }}" alt="Imagem da Moto" width="100">
-                    {% else %}
-                        <span>Sem imagem</span>
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{{url_for('edit_moto', moto_id=moto.id)}}">Editar</a>
-                    <form action="{{url_for('delete_moto', moto_id=moto.id)}}" method="post" style="display:inline;">
-                        <button type="submit">Remover</button>
-                    </form>
-                </td>
-            </tr>
+<body class="admin-page">
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1 class="admin-title">Painel de Administração, {{ current_user.username }}!</h1>
+            <a href="{{ url_for('logout') }}" class="btn-logout">Sair</a>
+        </div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+                <p class="flash-message {{ category }}">{{ message }}</p>
             {% endfor %}
-        </tbody>
-    </table>
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+        <div class="add-moto-section">
+            <h2 class="section-title">Adicionar Nova Moto</h2>
+            <form action="{{ url_for('add_moto') }}" method="POST" enctype="multipart/form-data" class="add-moto-form">
+                <div class="form-group">
+                    <label for="marca">Marca:</label>
+                    <input type="text" id="marca" name="marca" required>
+                </div>
+                <div class="form-group">
+                    <label for="modelo">Modelo:</label>
+                    <input type="text" id="modelo" name="modelo" required>
+                </div>
+                <div class="form-group">
+                    <label for="ano">Ano:</label>
+                    <input type="number" id="ano" name="ano" required>
+                </div>
+                <div class="form-group">
+                    <label for="preco">Preço:</label>
+                    <input type="number" id="preco" name="preco" required>
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <textarea id="descricao" name="descricao" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="imagem">Imagem:</label>
+                    <input type="file" id="imagem" name="imagem">
+                </div>
+                <button type="submit" class="btn-add-moto">Adicionar Moto</button>
+            </form>
+        </div>
+
+        <div class="motos-cadastradas-section">
+            <h2 class="section-title">Motos Cadastradas</h2>
+            <table class="motos-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Ano</th>
+                        <th>Preço</th>
+                        <th>Descrição</th>
+                        <th>Imagem</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for moto in motos %}
+                    <tr>
+                        <td>{{ moto.id }}</td>
+                        <td>{{ moto.marca }}</td>
+                        <td>{{ moto.modelo }}</td>
+                        <td>{{ moto.ano }}</td>
+                        <td>R$ {{ moto.preco }}</td>
+                        <td>{{ moto.descricao }}</td>
+                        <td>
+                            {% if moto.imagem_url %}
+                                <img src="{{ url_for('static', filename='uploads/' + moto.imagem_url) }}" alt="Imagem da Moto" class="table-img">
+                            {% else %}
+                                <span>Sem imagem</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('edit_moto', moto_id=moto.id) }}" class="btn-action">Editar</a>
+                            <form action="{{ url_for('delete_moto', moto_id=moto.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn-action btn-delete">Remover</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

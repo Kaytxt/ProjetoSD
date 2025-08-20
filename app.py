@@ -8,7 +8,7 @@ import os
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'Sdmotos2022'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'sua_chave_secreta_de_fallback'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 login_manager = LoginManager()

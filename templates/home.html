@@ -16,8 +16,8 @@
             <ul>
                 <li><a href="#inicio" class="nav-link active">INICIO</a></li>
                 <li><a href="#localizacao" class="nav-link">LOCALIZAÇÃO</a></li>
-                <li><a href="#contato" class="nav-link">CONTATO</a></li>
                 <li><a href="#sobre-nos" class="nav-link">SOBRE NÓS</a></li>
+                <li><a href="#contato" class="nav-link">CONTATO</a></li>
             </ul>
         </nav>
     </header>
@@ -56,7 +56,7 @@
                         <p>Ano: {{ moto.ano }}</p>
                         <p>Preço: R$ {{ moto.preco }}</p>
                         <p>Descrição: {{ moto.descricao }}</p>
-                        <a href="#" class="btn-card">Veja mais</a>
+                        <a href="https://wa.me/5516981535884?text={{ 'Olá, tenho interesse em saber mais sobre a %s %s, ano %s.'|format(moto.marca, moto.modelo, moto.ano)|urlencode }}" class="btn-card">Veja mais</a>
                     </div>
                     {% endfor %}
                 </div>
@@ -68,9 +68,9 @@
     <section id="localizacao" class="content-section">
         <h1>LOCALIZAÇÃO</h1>
         <div class="location-content">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.12781878361!2d-47.818442724458055!3d-21.144458379203067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94b9bbd0a1b6a715%3A0x6b490f23055375d8!2sAv.%20Luzitana%2C%20140%20-%20Vila%20Recreio%2C%20Ribeir%C3%A3o%20Preto%20-%20SP%2C%2014031-420!5e0!3m2!1spt-BR!2sbr!4v1700767072481!5m2!1spt-BR!2sbr" width="1000" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            <p>Av. Luzitana, 140 - Parque Ribeirao Preto</p>
-            <p>Ribeirão Preto - SP, 14031-420</p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3719.7385292563717!2d-47.831951624738586!3d-21.202543480490615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94b9bebbb9e03797%3A0xb7eec8eeb274f93e!2sAv.%20Luzitana%2C%20140%20-%20Parque%20Ribeirao%20Preto%2C%20Ribeir%C3%A3o%20Preto%20-%20SP%2C%2014031-240!5e0!3m2!1spt-BR!2sbr!4v1755655878982!5m2!1spt-BR!2sbr" width="1000" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <a href="https://www.google.com/maps/place/Av.+Luzitana,+140+-+Parque+Ribeirao+Preto,+Ribeirão+Preto+-+SP,+14031-240/@-21.2025435,-47.8319516,17z/data=!3m1!4b1!4m6!3m5!1s0x94b9bebbb9e03797:0xb7eec8eeb274f93e!8m2!3d-21.2025435!4d-47.8293767!16s%2Fg%2F11f3w1s6j3?entry=ttu&g_ep=EgoyMDI1MDgxNy4wIKXMDSoASAFQAw%3D%3D"><p>Av. Luzitana, 140 - Parque Ribeirao Preto</p>
+            <p>Ribeirão Preto - SP, 14031-420</p></a>
         </div>
     </section>
 
@@ -95,8 +95,8 @@
     <section id="contato" class="content-section">
         <h1>ENTRE EM CONTATO COM A GENTE</h1>
         <div class="contact-content">
-            <a href="tel:+5516981535884" class="contact-btn phone-btn">📞 +55 16 98153-5884</a>
-            <a href="https://www.instagram.com/sdmotos2022" class="contact-btn instagram-btn" target="_blank">📷 @sdmotos2022</a>
+            <a href="tel:+5516981535884" class="contact-btn phone-btn"><strong>+55 16 98153-5884</strong></a>
+            <a href="https://www.instagram.com/sdmotos2022" class="contact-btn instagram-btn" target="_blank"> <strong>@SDMOTOS2022</strong></a>
         </div>
     </section>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
